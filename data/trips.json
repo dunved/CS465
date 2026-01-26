@@ -1,0 +1,20 @@
+[
+  {
+    "name": "Paris Getaway",
+    "length": "7 days",
+    "price": "$1,799",
+    "description": "Paris Getaway - museums, cafes, and city tours."
+  },
+  {
+    "name": "Tokyo Adventure",
+    "length": "10 days",
+    "price": "$2,499",
+    "description": "Tokyo Adventure - temples, street food, and tech districts."
+  },
+  {
+    "name": "Costa Rica Escape",
+    "length": "5 days",
+    "price": "$1,299",
+    "description": "Costa Rica Escape - beaches, rainforests, and ziplining."
+  }
+]
