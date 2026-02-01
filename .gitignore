@@ -1,5 +1,22 @@
+# dependencies
 node_modules/
-.env
-.DS_Store
-npm-debug.log*
 
+# env
+.env
+.env.*
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS/editor
+.DS_Store
+Thumbs.db
+
+# archives (don’t push zips)
+*.zip
+
+# build output (if any)
+dist/
+build/
