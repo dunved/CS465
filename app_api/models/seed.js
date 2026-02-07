@@ -1,50 +1,40 @@
-const fs = require('fs');
 const mongoose = require('mongoose');
-require('./db');
+const fs = require('fs');
+const path = require('path');
+
+// Load Trip model
 require('./travlr');
 
+// Connect to MongoDB running inside WSL
+mongoose.connect('mongodb://127.0.0.1:27017/travlr');
+
+// Connection status logs
+mongoose.connection.on('connected', () => {
+  console.log('✓ MongoDB connected');
+});
+
+mongoose.connection.on('error', (err) => {
+  console.error('✗ MongoDB connection error:', err.message);
+});
+
+// Get Trip model
 const Trip = mongoose.model('trips');
 
-const dbName = process.env.DB_NAME || 'travlr';
-const dbHost = process.env.DB_HOST || '127.0.0.1';
+// Load trips JSON
+const tripsFile = path.join(__dirname, '../../data/trips.json');
+const tripsData = JSON.parse(fs.readFileSync(tripsFile, 'utf-8'));
 
-const uri = `mongodb://${dbHost}:27017/${dbName}`;
-
-async function seedDB() {
+// Seed database
+const seedDB = async () => {
   try {
-    if (mongoose.connection.readyState !== 1) {
-      await mongoose.connect(uri, {
-        serverSelectionTimeoutMS: 30000
-      });
-    }
-
-    const raw = fs.readFileSync('data/trips.json', 'utf8');
-    const trips = JSON.parse(raw).map(t => ({
-      name: String(t.name || '').trim(),
-      length: String(t.length || '').trim(),
-      description: String(t.description || '').trim(),
-      price: Number(String(t.price || '').replace(/[^0-9.]/g, ''))
-    }));
-
-    const bad = trips.find(
-      t => !t.name || !t.length || !t.description || !Number.isFinite(t.price)
-    );
-    if (bad) {
-      console.error('Bad trip record (missing/invalid fields):', bad);
-      process.exit(1);
-    }
-
-    const del = await Trip.deleteMany({});
-    console.log('Trips deleted:', del.deletedCount);
-
-    const inserted = await Trip.insertMany(trips);
-    console.log('Trips inserted:', inserted.length);
-
-    process.exit(0);
+    await Trip.deleteMany({});
+    await Trip.insertMany(tripsData);
+    console.log('✓ Trips database seeded successfully');
   } catch (err) {
-    console.error(err);
-    process.exit(1);
+    console.error('✗ Seeding error:', err);
+  } finally {
+    mongoose.connection.close();
   }
-}
+};
 
 seedDB();

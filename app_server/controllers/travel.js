@@ -1,22 +1,29 @@
-const fs = require("fs");
-const path = require("path");
+const request = require('request');
+
+const apiOptions = {
+  server: 'http://localhost:3001'
+};
+
+const _renderTravelPage = (req, res, responseBody) => {
+  res.render('travel', {
+    title: 'Travlr Getaways',
+    trips: responseBody
+  });
+};
 
 const travel = (req, res) => {
-  let trips = [];
+  const path = '/api/trips';
+  const requestOptions = {
+    url: apiOptions.server + path,
+    method: 'GET',
+    json: {}
+  };
 
-  try {
-    // Always load from the project root: /data/trips.json
-    const tripsPath = path.join(process.cwd(), "data", "trips.json");
-    const raw = fs.readFileSync(tripsPath, "utf8");
-    trips = JSON.parse(raw);
-  } catch (err) {
-    console.error("Could not load data/trips.json:", err.message);
-  }
-
-  res.render("travel", {
-    title: "Travlr Getaways",
-    year: new Date().getFullYear(),
-    trips: trips
+  request(requestOptions, (err, response, body) => {
+    if (err) {
+      return res.status(500).send(err);
+    }
+    _renderTravelPage(req, res, body);
   });
 };
 

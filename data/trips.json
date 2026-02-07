@@ -1,20 +1,32 @@
 [
   {
-    "name": "Paris Getaway",
-    "length": "7 days",
-    "price": "$1,799",
-    "description": "Paris Getaway - museums, cafes, and city tours."
+    "code": "NYC",
+    "name": "New York City",
+    "length": "4 days",
+    "start": "2025-06-01",
+    "resort": "Grand Central Hotel",
+    "perPerson": 1200,
+    "image": "nyc.jpg",
+    "description": "Experience the energy of New York City with iconic landmarks, dining, and entertainment."
   },
   {
-    "name": "Tokyo Adventure",
-    "length": "10 days",
-    "price": "$2,499",
-    "description": "Tokyo Adventure - temples, street food, and tech districts."
-  },
-  {
-    "name": "Costa Rica Escape",
+    "code": "LAX",
+    "name": "Los Angeles",
     "length": "5 days",
-    "price": "$1,299",
-    "description": "Costa Rica Escape - beaches, rainforests, and ziplining."
+    "start": "2025-07-15",
+    "resort": "Sunset Boulevard Resort",
+    "perPerson": 1500,
+    "image": "la.jpg",
+    "description": "Enjoy beaches, Hollywood attractions, and vibrant nightlife in Los Angeles."
+  },
+  {
+    "code": "CHI",
+    "name": "Chicago",
+    "length": "3 days",
+    "start": "2025-08-10",
+    "resort": "Magnificent Mile Hotel",
+    "perPerson": 900,
+    "image": "chicago.jpg",
+    "description": "Explore Chicago’s architecture, museums, and famous deep-dish pizza."
   }
 ]
