@@ -1,0 +1,29 @@
+/* Bootstrap */
+@import "bootstrap/dist/css/bootstrap.min.css";
+
+/* Global styles */
+body {
+  background-color: #f8f9fa;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+h1, h2, h3 {
+  font-weight: 600;
+}
+
+.container {
+  max-width: 1100px;
+}
+
+.card {
+  border-radius: 10px;
+}
+
+.card-title {
+  font-weight: 600;
+}
+
+.btn {
+  border-radius: 6px;
+}
+/* You can add global styles to this file, and also import other style files */

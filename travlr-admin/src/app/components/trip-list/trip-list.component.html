@@ -1,0 +1,22 @@
+<div class="container mt-3">
+  <div *ngIf="loading" class="alert alert-info">Loading...</div>
+
+  <div *ngIf="!loading && errorMsg" class="alert alert-danger">
+    {{ errorMsg }}
+  </div>
+
+  <div *ngIf="!loading && !errorMsg && trips.length === 0" class="alert alert-warning">
+    No trips found.
+  </div>
+
+  <div *ngFor="let trip of trips" class="card mb-3">
+    <div class="card-body">
+      <h5 class="card-title">{{ trip.name }}</h5>
+      <p class="card-text">{{ trip.description }}</p>
+      <div class="d-flex gap-3">
+        <span><b>Length:</b> {{ trip.length }}</span>
+        <span><b>Price:</b> {{ trip.price }}</span>
+      </div>
+    </div>
+  </div>
+</div>

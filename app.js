@@ -1,19 +1,25 @@
 const express = require("express");
 const path = require("path");
 const hbs = require("hbs");
+const cors = require("cors");
 
 require("./app_api/models/db");
 
 const app = express();
 
-/* WSL-safe dynamic port */
+/* Dynamic Port */
 const PORT = process.env.PORT || 3001;
+
+/* CORS (Required for Angular frontend) */
+app.use(cors());
 
 /* Views */
 app.set("views", path.join(__dirname, "app_server", "views"));
 app.set("view engine", "hbs");
 
-hbs.registerPartials(path.join(__dirname, "app_server", "views", "partials"));
+hbs.registerPartials(
+  path.join(__dirname, "app_server", "views", "partials")
+);
 
 /* Middleware */
 app.use(express.json());
@@ -27,13 +33,12 @@ app.use("/", siteRoutes);
 const apiRoutes = require("./app_api/routes");
 app.use("/api", apiRoutes);
 
-/* Health check */
+/* Health Check */
 app.get("/health", (req, res) => {
   res.json({ status: "ok", port: PORT });
 });
 
-/* Start server */
+/* Start Server */
 app.listen(PORT, "0.0.0.0", () => {
   console.log(`Travlr running at http://localhost:${PORT}`);
 });
-

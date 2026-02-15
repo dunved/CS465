@@ -20,3 +20,11 @@ Thumbs.db
 # build output (if any)
 dist/
 build/
+ node_modules/
+dist/
+.angular/
+.env
+.env.local
+logs/
+*.log
+
