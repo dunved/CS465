@@ -3,12 +3,13 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { Trip } from '../../models/trip';
 import { TripDataService } from '../../services/trip-data.service';
+import { AuthenticationService } from '../../services/authentication.service';
 
 @Component({
   selector: 'app-trip-card',
   standalone: true,
   imports: [CommonModule, RouterModule],
-  templateUrl: './trip-card.component.html'
+  templateUrl: './trip-card.component.html',
 })
 export class TripCardComponent {
   @Input() trip!: Trip;
@@ -16,17 +17,24 @@ export class TripCardComponent {
 
   deleting = false;
 
-  constructor(private tripService: TripDataService) {}
+  constructor(
+    private tripService: TripDataService,
+    private authenticationService: AuthenticationService
+  ) {}
+
+  public isLoggedIn(): boolean {
+    return this.authenticationService.isLoggedIn();
+  }
 
   deleteTrip() {
     if (!this.trip?._id) return;
-    if (!confirm(`Delete "${this.trip.name}"?`)) return;
+    if (!confirm(`Delete ${this.trip.name}?`)) return;
 
     this.deleting = true;
     this.tripService.deleteTrip(this.trip._id).subscribe({
       next: () => {
         this.deleting = false;
-        this.deleted.emit(this.trip._id!);
+        this.deleted.emit(this.trip._id);
       },
       error: () => {
         this.deleting = false;
@@ -34,4 +42,4 @@ export class TripCardComponent {
       }
     });
   }
-}
+}	

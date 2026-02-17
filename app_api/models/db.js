@@ -58,3 +58,4 @@ connect();
 require('./travlr');
 
 module.exports = mongoose;
+require('./user');

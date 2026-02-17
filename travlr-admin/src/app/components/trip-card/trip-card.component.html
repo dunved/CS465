@@ -8,8 +8,7 @@
     <p class="mb-1"><strong>Per Person:</strong> {{ trip.perPerson }}</p>
     <p class="text-muted small mb-0">{{ trip.description }}</p>
   </div>
-
-  <div class="card-footer d-flex gap-2">
+  <div class="card-footer d-flex gap-2" *ngIf="isLoggedIn()">
     <a class="btn btn-outline-secondary btn-sm" [routerLink]="['/trips/edit', trip._id]">Edit</a>
     <button class="btn btn-outline-danger btn-sm" (click)="deleteTrip()" [disabled]="deleting">
       {{ deleting ? 'Deleting...' : 'Delete' }}
