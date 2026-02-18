@@ -43,7 +43,12 @@ export class TripDataService {
       catchError(this.handleError)
     );
   }
-
+getTrip(tripId: string): Observable<Trip> {
+    return this.http.get<Trip>(this.apiUrl + '/' + tripId, httpOptions).pipe(
+      retry(1),
+      catchError(this.handleError)
+    );
+  }
   addTrip(trip: Trip): Observable<Trip> {
     return this.http.post<Trip>(this.apiUrl, trip, httpOptions).pipe(
       catchError(this.handleError)

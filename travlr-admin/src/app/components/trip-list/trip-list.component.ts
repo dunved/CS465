@@ -36,7 +36,6 @@ export class TripListComponent implements OnInit {
 
     this.tripService.getTrips().subscribe({
       next: (data) => {
-        console.log('Trips received:', data);
         this.trips = Array.isArray(data) ? data : [];
         this.loading = false;
         this.cd.detectChanges();
@@ -48,5 +47,20 @@ export class TripListComponent implements OnInit {
         this.cd.detectChanges();
       }
     });
+  }
+
+  deleteTrip(trip: Trip): void {
+    if (confirm('Are you sure you want to delete "' + trip.name + '"?')) {
+      this.tripService.deleteTrip(trip._id!).subscribe({
+        next: () => {
+          this.trips = this.trips.filter(t => t._id !== trip._id);
+          this.cd.detectChanges();
+        },
+        error: (err) => {
+          console.error('Delete failed:', err);
+          this.errorMsg = 'Failed to delete trip.';
+        }
+      });
+    }
   }
 }

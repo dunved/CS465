@@ -15,9 +15,13 @@
     <div class="card-body">
       <h5 class="card-title">{{ trip.name }}</h5>
       <p class="card-text">{{ trip.description }}</p>
-      <div class="d-flex gap-2">
+      <div class="d-flex gap-2 mb-2">
         <span>{{ trip.length }}</span>
         <span><b>Price:</b> {{ trip.price }}</span>
+      </div>
+      <div *ngIf="isLoggedIn()" class="d-flex gap-2">
+        <a [routerLink]="['/trips/edit', trip._id]" class="btn btn-outline-primary btn-sm">Edit</a>
+        <button (click)="deleteTrip(trip)" class="btn btn-outline-danger btn-sm">Delete</button>
       </div>
     </div>
   </div>
